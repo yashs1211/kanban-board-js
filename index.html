@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Kanban Board</title>
+   <link rel="shortcut icon" href="/icon-1main.png" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+<style> 
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+body{
+ background: linear-gradient( 120deg,hwb(196 51% 10%),white,lab(68.22% 44.28 -29.35));
+   font-family: 'Poppins', sans-serif;
+}
+h1{
+    margin-top: 50px;
+}
+p{
+  text-align: center;
+  font-size: 16px;
+  opacity: 0.8;
+  margin-top: 8px;
+}
+.header{
+ display: flex;
+ align-items: center;
+ justify-content: space-around;
+ margin-top: 70px;
+ cursor: not-allowed;
+}
+.header span{
+    width: 40%;
+    border-radius: 5px;
+    background-color: white ;
+    padding: 10px ;
+    text-align: center;
+    border-bottom: 2px solid red;
+    margin: 5px;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+  .board {
+  padding: 20px;
+}
+.category {
+  background: lightblue;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+.tasks {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+.column {
+  flex: 1;
+  background: white;
+  min-height: 150px;
+  padding: 5px;
+  border-radius: 5px;
+}
+.modal {position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;}
+.hidden { display: none;}
+.modal-content {background: linear-gradient( 45deg,hwb(196 60% 7%),white,hwb(300 91% 4%));
+  padding: 40px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;}
+button{cursor: pointer;}
+button:hover{transform: scale(1.03);}
+footer {text-align: center;
+  padding: 20px;
+  font-size: 14px;
+   color: #555;
+  }
+footer a {color: black;
+  text-decoration: none;
+  font-weight: 500;}
+footer a:hover {text-decoration: underline;}
+</style>
+</head>
+<body>
+  <div class="board">
+  <h1 style="text-align: center;">Kanban Board 🚀 </h1>
+  <p> ⚡Stay organized and track your progress</p>
+        <div class="header">
+            <span class="To Do">To Do</span>
+            <span class="In progress">In Progress </span>
+            <span class="Done">Done </span>
+        </div>
+     <!-- Critical -->
+  <div class="category critical" style="background-color: #32c6be;   ">
+    <div  style="display: flex; justify-content: space-between;">
+    <h2 style="color: white;  ">Critical</h2>
+    <button class="addBtn" style="width:100px; border: none; padding: 5px; font-weight: bold; background-color: hwb(176 52% 22%);border-radius: 5px; ">+ Add Task</button>
+</div>
+    <div class="tasks">
+      <div class="column todo"></div>
+      <div class="column progress"></div>
+      <div class="column done"></div>
+    </div>
+  </div>
+  <div class="category issues" style="background-color: orange; ">
+     <div  style="display: flex; justify-content: space-between;">
+    <h2>Issues</h2>
+    <button class="addBtn" style="width:100px; border: none; padding: 5px; background-color: #ecd2a0;border-radius: 5px; font-weight: bold;">+ Add Task</button>
+</div>
+    <div class="tasks">
+      <div class="column todo"></div>
+      <div class="column progress"></div>
+      <div class="column done"></div>
+    </div>
+  </div>
+  <div class="category maintenance" style="background-color: yellowgreen;">
+    <div  style="display: flex; justify-content: space-between;">
+    <h2>Maintenance</h2>
+    <button class="addBtn" style="width:100px; border: none; padding: 5px; background-color:#d6f892 ;border-radius: 5px; font-weight: bold;">+ Add Task</button>
+</div>
+    <div class="tasks">
+      <div class="column todo"></div>
+      <div class="column progress"></div>
+      <div class="column done"></div>
+    </div>
+  </div>
+  <div class="category unplanned" style="background-color: gray; color: white;">
+    <div style="display: flex; justify-content: space-between;">
+    <h2>Unplanned</h2>
+    <button class="addBtn" style="width:100px; border: none; padding: 5px; background-color: hsl(0, 13%, 81%);border-radius: 5px; font-weight: bold;">+ Add task</button>
+</div>
+    <div class="tasks">
+      <div class="column todo"></div>
+      <div class="column progress"></div>
+      <div class="column done"></div>
+    </div>
+  </div>
+</div>
+<div class="modal hidden">
+  <div class="modal-content">
+    <h3>Add Task</h3>
+ <select id="taskCategory" style="height: 25px; border: 2px solid rebeccapurple; ">
+  <option value="critical">Critical</option>
+  <option value="issues">Issues</option>
+  <option value="maintenance">Maintenance</option>
+  <option value="unplanned">Unplanned</option>
+</select>
+    <input type="text" id="taskTitle" style="height: 30px; border: 2px solid rebeccapurple;" placeholder="Title">
+    <textarea id="taskDesc" placeholder="Description" style="height: 60px; margin-bottom: 20px; border: 2px solid rebeccapurple;"></textarea>
+<div id="card">
+  <label>card  color </label>
+  <input type="color" id="colorPicker" value="violet" >
+</div>
+    <button id="addTaskBtn" style="background-color: #43e843; border: none; padding: 6px; border-radius: 5px; font-weight: bold;">Add</button>
+    <button id="cancelBtn"  style="background-color: #fb3d3d; border: none; padding: 6px; border-radius: 5px; color: white ; font-weight: bold;" >Cancel</button>
+  </div>
+</div>
+<footer>
+  <p>
+    🚀 Built by Thogari Yashwanth • Frontend Developer • 
+    <a href="https://github.com/yashs1211" target="_blank">GitHub</a>
+    <p>© 2026 Yashwanth. All rights reserved.</p>
+  </p>
+</footer>
+<script>
+  let tasks = [];
+const modal = document.querySelector(".modal");
+const openBtn = document.getElementById("openModal");
+const cancelBtn = document.getElementById("cancelBtn");
+const addTaskBtn = document.getElementById("addTaskBtn");
+const addButtons = document.querySelectorAll(".addBtn");
+let draggedTask = null;
+let selectedCategory = "";
+addButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    selectedCategory = btn.dataset.category;
+    console.log("Clicked:", selectedCategory);
+    modal.classList.remove("hidden"); 
+  });
+});
+cancelBtn.addEventListener("click", () => {
+  modal.classList.add("hidden");
+});
+addTaskBtn.addEventListener("click", () => {
+  const title = document.getElementById("taskTitle").value;
+  const desc = document.getElementById("taskDesc").value;
+  const category = document.getElementById("taskCategory").value;
+  const color = document.getElementById('colorPicker').value;
+  const columns = document.querySelectorAll(".todo, .progress, .done");
+  const task = document.createElement("div");
+  task.style.margin = "5px";
+  task.style.padding = "10px";
+  task.style.cursor= "pointer";
+  task.style.borderRadius = "5px";
+  task.style.backgroundColor = color || "white";
+  task.innerHTML = `
+    <strong>${title}</strong>
+    <p>${desc}</p>
+  `;
+
+  const target = document.querySelector(`.${category} .todo`);
+  target.appendChild(task);
+  modal.classList.add("hidden");
+  task.addEventListener('click',()=>{
+   const isConfirmed = confirm("Are you sure you want to delete this task?");
+  if (isConfirmed) {
+    task.remove();
+}});
+document.getElementById("taskTitle").value = "";
+document.getElementById("taskDesc").value = "";
+//====Drag ====//
+task.setAttribute("draggable", "true");
+ task.addEventListener("dragstart", (e) => {
+  e.dataTransfer.setData("text/plain", e.target.innerHTML);
+  e.dataTransfer.setData("taskId", Date.now()); // optional id
+  draggedTask = task; // store reference
+});
+columns.forEach((column) => {
+  column.addEventListener("dragover", (e) => {
+    e.preventDefault(); // VERY IMPORTANT
+  });
+  column.addEventListener("drop", () => {
+    column.appendChild(draggedTask);
+  });
+});
+});
+</script>
+</body>
+</html>
+
+
