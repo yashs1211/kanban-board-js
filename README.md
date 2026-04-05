@@ -11,9 +11,9 @@ A responsive Kanban Board built using JavaScript to manage tasks across differen
 
 ---
 
-## 📸 Preview![Uploading screenshot.png.png…]()
+## 📸 Preview!
 
-![Kanban Board Screenshot](.)
+![Kanban Board Screenshot(./screenshot.png)
 
 ---
 
