@@ -50,4 +50,4 @@ A responsive Kanban Board built using JavaScript to manage tasks across differen
 ## 📂 Project Setup
 1. Clone the repository  
    ```bash
-   git clone https://github.com/your-username/your-repo-name.git
+  git clone https://github.com/yashs1211/kanban-board-js.git
