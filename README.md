@@ -7,7 +7,7 @@ A responsive Kanban Board built using JavaScript to manage tasks across differen
 ---
 
 ## 🚀 Live Demo
-👉 https://your-netlify-link.netlify.app/
+👉 https://kanbanboradys.netlify.app/
 
 ---
 
